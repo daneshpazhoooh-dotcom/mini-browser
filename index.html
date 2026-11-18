@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mini Browser</title>
+<style>
+* { box-sizing:border-box }
+body {
+  margin:0;
+  background:#10131b;
+  color:white;
+  font-family:Tahoma,Arial,sans-serif;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.browser {
+  width:100%;
+  max-width:650px;
+  padding:22px;
+}
+h2 { text-align:center; margin-bottom:25px }
+.bar {
+  display:flex;
+  gap:8px;
+  background:#202633;
+  padding:10px;
+  border-radius:15px;
+}
+input {
+  flex:1;
+  min-width:0;
+  padding:13px;
+  border:0;
+  border-radius:10px;
+  background:#111722;
+  color:white;
+  direction:ltr;
+  outline:none;
+}
+button {
+  border:0;
+  border-radius:10px;
+  padding:12px 16px;
+  background:#7657ed;
+  color:white;
+  cursor:pointer;
+}
+button:hover { background:#9278ff }
+.main {
+  text-align:center;
+  margin-top:65px;
+}
+.logo { font-size:55px }
+.main button { margin-top:20px; width:100% }
+small {
+  display:block;
+  color:#9ba4b5;
+  text-align:center;
+  margin-top:35px;
+}
+</style>
+</head>
+<body>
+<div class="browser">
+  <h2>🌐 Mini Browser</h2>
+
+  <div class="bar">
+    <button onclick="history.back()">❮</button>
+    <input id="url" value="https://www.instagram.com"
+    placeholder="Enter website address">
+    <button onclick="openSite()">برو</button>
+  </div>
+
+  <div class="main">
+    <div class="logo">🌐</div>
+    <h2>مرورگر شخصی من</h2>
+    <p>آدرس سایت مورد نظرت را وارد کن</p>
+    <button onclick="openInstagram()">
+      ورود به Instagram
+    </button>
+  </div>
+
+  <small>Mini Browser · Simple & Private</small>
+</div>
+
+<script>
+function openSite() {
+  let address = document.getElementById("url").value.trim();
+  if (!address) return;
+
+  if (!/^https?:\/\//i.test(address)) {
+    address = "https://" + address;
+  }
+
+  try {
+    const parsed = new URL(address);
+    if (!["http:", "https:"].includes(parsed.protocol)) return;
+    window.location.href = parsed.href;
+  } catch(e) {
+    alert("آدرس معتبر نیست");
+  }
+}
+
+function openInstagram() {
+  window.location.href = "https://www.instagram.com/";
+}
+
+document.getElementById("url")
+.addEventListener("keydown", function(e) {
+  if (e.key === "Enter") openSite();
+});
+</script>
+</body>
+</html>
